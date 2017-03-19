@@ -5,8 +5,6 @@ var users = require('../userlist')
 
 people.route('/')
   .get((req, res, next)=>{
-    console.log('hello route')
-    console.log('users', users)
     let all = users.list()
     res.json(all)
     //res.send('got to GET /people/')
