@@ -6,11 +6,13 @@ var users = require('../userlist')
 people.route('/')
   .get((req, res, next)=>{
     let all = users.list()
-    res.json(all)
+    res.send(all)
     //res.send('got to GET /people/')
   })
   .post((req, res, next)=>{
-
+    let name = req.body.name;
+	  let favoriteCity = req.body.favoriteCity;
+	  let newUser = users.add(name, favoriteCity)
   })
   .put((req, res, next)=>{
 

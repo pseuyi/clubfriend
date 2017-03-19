@@ -3,14 +3,29 @@ const _ = require('lodash')
 let data = [
   {
     id: 1,
-    name: 'Sean',
+    name: 'Mia',
+    favoriteCity: 'Shanghai'
+  },
+  {
+    id: 2,
+    name: 'Pseuyi',
     favoriteCity: 'New York'
+  },
+  {
+    id: 3,
+    name: 'Janus',
+    favoriteCity: 'Berlin'
+  },
+  {
+    id: 4,
+    name: 'Loris',
+    favoriteCity: 'London'
   }
 ]
 
-let id = 2
+let id = 5
 function add (name, favoriteCity) {
-  let newUser = { name: name, content: favoriteCity, id: id++ }
+  let newUser = { name: name, favoriteCity: favoriteCity, id: id++ }
   data.push(newUser)
   return newUser
 }
