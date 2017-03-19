@@ -6,24 +6,26 @@ export default class App extends React.Component {
 
   constructor () {
     super()
-    this.state = {users: []}
+    this.state = {data: {}}
   }
-  componentDidMount () {
+  componentWillMount () {
     axios.get('/people')
-       .then(res => {
-         console.log('res', res)
-         this.setState({users: res.data})}
-       )
-       .catch(err => console.error('unsuccessful', err))
+     .then(res => {
+       this.setState({data: res.data})
+     })
+     .catch(err => console.error('unsuccessful', err))
   }
   render () {
     return (
-      <div>
-        <h2>sample data</h2>
+      <div className="col half section">
+        <h2>example /GET request to /people</h2>
+        <h3>raw json output</h3>
+        <p>{JSON.stringify(this.state.data)}</p>
+        <h3>user data list</h3>
         <ul>
           {
-            this.state.users && this.state.users.map(user=>(
-              <li key={user.id}>{user.id}) {user.name}: my favorite place to dance is in {user.favoriteCity}</li>
+            this.state.data.users && this.state.data.users.map(user=>(
+              <li key={user.id}>user no.{user.id}) {user.name}: my favorite clubs are in {user.favoriteCity}</li>
             ))
           }
         </ul>
