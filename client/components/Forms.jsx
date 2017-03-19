@@ -77,7 +77,7 @@ export default class Forms extends React.Component {
             />
           </div>
           <div className="form-group">
-            update city <br />
+            new favorite city <br />
             <input
               name="city"
               type="text"

@@ -11362,7 +11362,7 @@ var Forms = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { className: 'form-group' },
-            'update city ',
+            'new favorite city ',
             _react2.default.createElement('br', null),
             _react2.default.createElement('input', {
               name: 'city',

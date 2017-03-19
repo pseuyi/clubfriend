@@ -34,7 +34,7 @@ ul {
 }
 .app {
   margin: 0 auto;
-  width: 64%;
+  width: 66%;
 }
 .flex {
   display: flex;
@@ -49,8 +49,6 @@ ul {
 }
 .flex .section {
   padding: 0.8rem;
-  border: 1px solid white;
-  border-radius: 0.4rem;
 }
 .divider {
   font-family: "Arial", sans-serif;
@@ -79,8 +77,10 @@ input:focus {
 }
 .button {
   margin-top: 0.2rem;
+  width: 100%;
   background: #187a72;
-  border: 2px solid #b1b5b4;
   color: white;
   font-size: 0.8rem;
+  border: 1px solid white;
+  border-radius: 0.4rem;
 }
