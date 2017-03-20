@@ -24,8 +24,7 @@ app.use(compression())
 // serve static stuff like style.css
 app.use(express.static('public'))
 
-// app.use('/people', require('./routes'))
-app.use('/people', require('./routes/persistent.js'))
+app.use('/people', require('./routes'))
 
 // send all requests to index.html
 app.get('/', (req, res)=>{
