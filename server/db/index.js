@@ -1,8 +1,8 @@
 'use strict'
-var Sequelize = require('sequelize')
-var databaseURI = 'postgres://localhost:5432/clubfriend'
+const Sequelize = require('sequelize')
+const url = process.env.DATABASE_URL || 'postgres://localhost:5432/clubfriend'
 
-var db = new Sequelize(databaseURI, {
+const db = new Sequelize(url, {
     define: {
         timestamps: false,
         underscored: true
