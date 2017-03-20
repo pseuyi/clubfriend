@@ -11132,11 +11132,6 @@ var Desc = function (_React$Component) {
           " returns a specific user's info",
           _react2.default.createElement("br", null),
           "/DELETE request to /people/:id deletes a specific user"
-        ),
-        _react2.default.createElement(
-          "p",
-          null,
-          "* refresh page for changes"
         )
       );
     }
@@ -11510,6 +11505,11 @@ var App = function (_React$Component) {
               user.favoriteCity
             );
           })
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          '* refresh page for changes'
         )
       );
     }

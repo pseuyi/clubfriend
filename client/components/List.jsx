@@ -29,6 +29,7 @@ export default class App extends React.Component {
             ))
           }
         </ul>
+        <p>* refresh page for changes</p>
       </div>
     )
   }

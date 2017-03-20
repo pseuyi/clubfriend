@@ -17,7 +17,6 @@ export default class Desc extends React.Component {
         /GET request to <a href={"http://clubfriend.herokuapp.com/people/100"}>/people/:id</a> returns a specific user's info<br />
           /DELETE request to /people/:id deletes a specific user
         </p>
-        <p>* refresh page for changes</p>
       </div>
     )
   }

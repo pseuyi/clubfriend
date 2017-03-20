@@ -65,14 +65,17 @@ img {
 .description p {
   line-height: 1.2rem;
 }
+.description p:last-of-type {
+  margin-bottom: 0;
+}
 input {
   margin: 0.2rem 0;
   width: 100%;
   border: 0;
   outline: 0;
-  border-bottom: 2px solid #b1b5b4;
-  color: black;
-  background: #b1b5b4;
+  border-bottom: 2px solid grey;
+  color: white;
+  background: #187a72;
   outline: none;
 }
 input:focus {
