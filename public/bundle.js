@@ -11110,7 +11110,7 @@ var Desc = function (_React$Component) {
             "/GET request to ",
             _react2.default.createElement(
               "a",
-              { style: { color: 'pink' }, href: "http://clubfriend.herokuapp.com/people" },
+              { style: { "fontWeight": "bolder" }, href: "http://clubfriend.herokuapp.com/people" },
               "/people"
             ),
             " returns all user objects",
@@ -11122,7 +11122,7 @@ var Desc = function (_React$Component) {
             "/GET request to ",
             _react2.default.createElement(
               "a",
-              { style: { color: 'pink' }, href: "http://clubfriend.herokuapp.com/people/100" },
+              { style: { "fontWeight": "bolder" }, href: "http://clubfriend.herokuapp.com/people/100" },
               "/people/:id"
             ),
             " returns a specific user's info",
