@@ -124,7 +124,7 @@ export default class Forms extends React.Component {
           <ul>
             {
               this.state.data.users && this.state.data.users.map(user=>(
-                <li key={user.id}>user no. <span style={{color: 'yellow'}}>{user.id}</span> ♥ <span style={{color: 'pink'}}>{user.name}</span>: my favorite clubs are in <span style={{color: 'purple'}}>{user.favoriteCity}</span>!</li>
+                <li key={user.id}>user no. <span style={{color: 'purple'}}>{user.id}</span> ♥ <span style={{color: 'pink'}}>{user.name}</span>: my favorite clubs are in <span style={{color: '#1ED760'}}>{user.favoriteCity}</span>!</li>
               ))
             }
           </ul>

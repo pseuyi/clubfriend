@@ -10168,7 +10168,7 @@ var App = function (_React$Component) {
           { className: 'header flex' },
           _react2.default.createElement(
             'div',
-            { className: 'col' },
+            { className: 'col half' },
             _react2.default.createElement(
               'h1',
               null,
@@ -10179,6 +10179,12 @@ var App = function (_React$Component) {
               { className: 'divider' },
               '~'
             )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'col half' },
+            _react2.default.createElement('img', { id: 'ttp-logo', src: 'ttp.png' }),
+            _react2.default.createElement('img', { id: 'spotify-logo', src: 'spotify.png' })
           )
         ),
         _react2.default.createElement(_Desc2.default, null),
@@ -11475,7 +11481,7 @@ var Forms = function (_React$Component) {
                 'user no. ',
                 _react2.default.createElement(
                   'span',
-                  { style: { color: 'yellow' } },
+                  { style: { color: 'purple' } },
                   user.id
                 ),
                 ' \u2665 ',
@@ -11487,7 +11493,7 @@ var Forms = function (_React$Component) {
                 ': my favorite clubs are in ',
                 _react2.default.createElement(
                   'span',
-                  { style: { color: 'purple' } },
+                  { style: { color: '#1ED760' } },
                   user.favoriteCity
                 ),
                 '!'

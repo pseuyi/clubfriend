@@ -46,8 +46,13 @@ li {
   margin: 0 auto;
   width: 66%;
 }
-img {
+.header img {
   float: right;
+  margin-right: 1rem;
+  width: 20%;
+}
+#spotify-logo {
+  width: 10%;
 }
 .flex {
   display: flex;
