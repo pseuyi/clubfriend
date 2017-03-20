@@ -11481,7 +11481,7 @@ var Forms = function (_React$Component) {
                 'user no. ',
                 _react2.default.createElement(
                   'span',
-                  { style: { color: 'purple' } },
+                  { style: { color: 'grey' } },
                   user.id
                 ),
                 ' \u2665 ',
@@ -11493,7 +11493,7 @@ var Forms = function (_React$Component) {
                 ': my favorite clubs are in ',
                 _react2.default.createElement(
                   'span',
-                  { style: { color: '#1ED760' } },
+                  { style: { color: 'purple' } },
                   user.favoriteCity
                 ),
                 '!'
