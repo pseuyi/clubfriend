@@ -13,19 +13,11 @@ export default class App extends React.Component {
           <div className="col">
             <h1>clubfriend api</h1>
             <p className="divider">~</p>
-
           </div>
         </div>
-        <div className="flex">
-          <Desc />
-        </div>
-        <div className="flex">
-          <Forms />
-          <List />
-        </div>
-        <div className="flex">
-          <Footer />
-        </div>
+        <Desc />
+        <Forms />
+        <Footer />
       </div>
     )
   }

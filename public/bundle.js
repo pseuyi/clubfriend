@@ -10181,22 +10181,9 @@ var App = function (_React$Component) {
             )
           )
         ),
-        _react2.default.createElement(
-          'div',
-          { className: 'flex' },
-          _react2.default.createElement(_Desc2.default, null)
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'flex' },
-          _react2.default.createElement(_Forms2.default, null),
-          _react2.default.createElement(_List2.default, null)
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'flex' },
-          _react2.default.createElement(_Footer2.default, null)
-        )
+        _react2.default.createElement(_Desc2.default, null),
+        _react2.default.createElement(_Forms2.default, null),
+        _react2.default.createElement(_Footer2.default, null)
       );
     }
   }]);
@@ -11090,48 +11077,52 @@ var Desc = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         "div",
-        { className: "col description" },
+        { className: "flex" },
         _react2.default.createElement(
-          "h2",
-          null,
-          "documentation"
-        ),
-        _react2.default.createElement(
-          "p",
-          null,
-          "clubfriend is an easy way to geolocate friendly club-goers."
-        ),
-        _react2.default.createElement(
-          "p",
-          null,
-          "this api supports http requests to retrieve user objects containing: id (int), name (string), and favorite city (string).",
-          _react2.default.createElement("br", null),
-          "the following calls are supported and return a JSON object containing a \"users\" array:"
-        ),
-        _react2.default.createElement(
-          "p",
-          null,
-          "/GET request to ",
+          "div",
+          { className: "col description" },
           _react2.default.createElement(
-            "a",
-            { href: "http://clubfriend.herokuapp.com/people" },
-            "/people"
+            "h2",
+            null,
+            "documentation"
           ),
-          " returns all user objects",
-          _react2.default.createElement("br", null),
-          "/POST request to /people creates a new user object",
-          _react2.default.createElement("br", null),
-          "/PUT request to /people updates a user's info",
-          _react2.default.createElement("br", null),
-          "/GET request to ",
           _react2.default.createElement(
-            "a",
-            { href: "http://clubfriend.herokuapp.com/people/100" },
-            "/people/:id"
+            "p",
+            null,
+            "clubfriend is an easy way to geolocate friendly club-goers."
           ),
-          " returns a specific user's info",
-          _react2.default.createElement("br", null),
-          "/DELETE request to /people/:id deletes a specific user"
+          _react2.default.createElement(
+            "p",
+            null,
+            "this api supports http requests to retrieve user objects containing: id (int), name (string), and favorite city (string).",
+            _react2.default.createElement("br", null),
+            "the following calls are supported and return a JSON object containing a \"users\" array:"
+          ),
+          _react2.default.createElement(
+            "p",
+            null,
+            "/GET request to ",
+            _react2.default.createElement(
+              "a",
+              { href: "http://clubfriend.herokuapp.com/people" },
+              "/people"
+            ),
+            " returns all user objects",
+            _react2.default.createElement("br", null),
+            "/POST request to /people creates a new user object",
+            _react2.default.createElement("br", null),
+            "/PUT request to /people updates a user's info",
+            _react2.default.createElement("br", null),
+            "/GET request to ",
+            _react2.default.createElement(
+              "a",
+              { href: "http://clubfriend.herokuapp.com/people/100" },
+              "/people/:id"
+            ),
+            " returns a specific user's info",
+            _react2.default.createElement("br", null),
+            "/DELETE request to /people/:id deletes a specific user"
+          )
         )
       );
     }
@@ -11181,25 +11172,29 @@ var Footer = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         "div",
-        { className: "col description" },
+        { className: "flex" },
         _react2.default.createElement(
-          "p",
-          null,
-          "*NOTE: for security and demo purposes post/put/delete requests are currently not linked to a databse and therefore not persistent"
-        ),
-        _react2.default.createElement(
-          "h3",
-          null,
+          "div",
+          { className: "col description" },
           _react2.default.createElement(
-            "a",
-            { href: "https://github.com/pseuyi/clubfriend" },
-            "github"
+            "p",
+            null,
+            "*NOTE: for security and demo purposes post/put/delete requests are currently not linked to a databse and therefore not persistent"
           ),
-          _react2.default.createElement("br", null),
           _react2.default.createElement(
-            "a",
-            { href: "https://pseuyi.xyz" },
-            "pseuyi.xyz"
+            "h3",
+            null,
+            _react2.default.createElement(
+              "a",
+              { href: "https://github.com/pseuyi/clubfriend" },
+              "github"
+            ),
+            _react2.default.createElement("br", null),
+            _react2.default.createElement(
+              "a",
+              { href: "https://pseuyi.xyz" },
+              "pseuyi.xyz"
+            )
           )
         )
       );
@@ -11248,6 +11243,7 @@ var Forms = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (Forms.__proto__ || Object.getPrototypeOf(Forms)).call(this));
 
+    _this.state = { data: {} };
     _this.onPost = _this.onPost.bind(_this);
     _this.onUpdate = _this.onUpdate.bind(_this);
     _this.onDelete = _this.onDelete.bind(_this);
@@ -11255,15 +11251,33 @@ var Forms = function (_React$Component) {
   }
 
   _createClass(Forms, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.fetchPeople();
+    }
+  }, {
+    key: 'fetchPeople',
+    value: function fetchPeople() {
+      var _this2 = this;
+
+      _axios2.default.get('/people').then(function (res) {
+        _this2.setState({ data: res.data });
+      }).catch(function (err) {
+        return console.error('unsuccessful', err);
+      });
+    }
+  }, {
     key: 'onPost',
     value: function onPost(event) {
+      var _this3 = this;
+
       event.preventDefault();
       var userInfo = {
         name: event.target.name.value,
         favoriteCity: event.target.city.value
       };
       _axios2.default.post('/people', userInfo).then(function (res) {
-        return console.log('posted');
+        return _this3.fetchPeople();
       }).catch(function (err) {
         return console.error('not posted', err);
       });
@@ -11271,14 +11285,15 @@ var Forms = function (_React$Component) {
   }, {
     key: 'onUpdate',
     value: function onUpdate(event) {
+      var _this4 = this;
+
       event.preventDefault();
       var userInfo = {
         id: event.target.id.value,
         favoriteCity: event.target.city.value
       };
-      console.log('userinfo', userInfo);
       _axios2.default.put('/people', userInfo).then(function (res) {
-        return console.log('updated');
+        return _this4.fetchPeople();
       }).catch(function (err) {
         return console.error('not updated', err);
       });
@@ -11286,121 +11301,169 @@ var Forms = function (_React$Component) {
   }, {
     key: 'onDelete',
     value: function onDelete(event) {
+      var _this5 = this;
+
       event.preventDefault();
       var path = '/people/' + event.target.id.value;
-      _axios2.default.delete(path);
+      _axios2.default.delete(path).then(function (res) {
+        return _this5.fetchPeople();
+      });
     }
   }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { className: 'col half section' },
+        { className: 'flex' },
         _react2.default.createElement(
-          'h2',
-          null,
-          'try now'
-        ),
-        _react2.default.createElement(
-          'h3',
-          null,
-          'create a user'
-        ),
-        _react2.default.createElement(
-          'form',
-          { onSubmit: this.onPost },
+          'div',
+          { className: 'col half section' },
           _react2.default.createElement(
-            'div',
-            { className: 'form-group' },
-            'your name',
-            _react2.default.createElement('br', null),
-            _react2.default.createElement('input', {
-              name: 'name',
-              type: 'text',
-              required: true,
-              defaultValue: 'Sean'
-            })
+            'h2',
+            null,
+            'try now'
           ),
           _react2.default.createElement(
-            'div',
-            { className: 'form-group' },
-            'where are your favorite clubs?',
-            _react2.default.createElement('br', null),
-            _react2.default.createElement('input', {
-              name: 'city',
-              type: 'text',
-              required: true,
-              defaultValue: 'New York'
-            })
+            'h3',
+            null,
+            'create a user'
           ),
           _react2.default.createElement(
-            'button',
-            { type: 'submit', className: 'button' },
-            'post'
+            'form',
+            { onSubmit: this.onPost },
+            _react2.default.createElement(
+              'div',
+              { className: 'form-group' },
+              'your name',
+              _react2.default.createElement('br', null),
+              _react2.default.createElement('input', {
+                name: 'name',
+                type: 'text',
+                required: true,
+                defaultValue: 'Sean'
+              })
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'form-group' },
+              'where are your favorite clubs?',
+              _react2.default.createElement('br', null),
+              _react2.default.createElement('input', {
+                name: 'city',
+                type: 'text',
+                required: true,
+                defaultValue: 'New York'
+              })
+            ),
+            _react2.default.createElement(
+              'button',
+              { type: 'submit', className: 'button' },
+              'post'
+            )
+          ),
+          _react2.default.createElement(
+            'h3',
+            null,
+            'update a user'
+          ),
+          _react2.default.createElement(
+            'form',
+            { onSubmit: this.onUpdate },
+            _react2.default.createElement(
+              'div',
+              { className: 'form-group' },
+              'id number',
+              _react2.default.createElement('br', null),
+              _react2.default.createElement('input', {
+                name: 'id',
+                type: 'text',
+                required: true,
+                defaultValue: '1'
+              })
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'form-group' },
+              'new favorite city ',
+              _react2.default.createElement('br', null),
+              _react2.default.createElement('input', {
+                name: 'city',
+                type: 'text',
+                required: true,
+                defaultValue: 'Brooklyn'
+              })
+            ),
+            _react2.default.createElement(
+              'button',
+              { type: 'submit', className: 'button' },
+              'update'
+            )
+          ),
+          _react2.default.createElement(
+            'h3',
+            null,
+            'delete a user'
+          ),
+          _react2.default.createElement(
+            'form',
+            { onSubmit: this.onDelete },
+            _react2.default.createElement(
+              'div',
+              { className: 'form-group' },
+              'id number',
+              _react2.default.createElement('br', null),
+              _react2.default.createElement('input', {
+                name: 'id',
+                type: 'text',
+                required: true,
+                defaultValue: '1'
+              })
+            ),
+            _react2.default.createElement(
+              'button',
+              { type: 'submit', className: 'button' },
+              'delete'
+            )
           )
         ),
         _react2.default.createElement(
-          'h3',
-          null,
-          'update a user'
-        ),
-        _react2.default.createElement(
-          'form',
-          { onSubmit: this.onUpdate },
+          'div',
+          { className: 'col half section' },
           _react2.default.createElement(
-            'div',
-            { className: 'form-group' },
-            'id number',
-            _react2.default.createElement('br', null),
-            _react2.default.createElement('input', {
-              name: 'id',
-              type: 'text',
-              required: true,
-              defaultValue: '1'
-            })
+            'h2',
+            null,
+            'example /GET request to /people'
           ),
           _react2.default.createElement(
-            'div',
-            { className: 'form-group' },
-            'new favorite city ',
-            _react2.default.createElement('br', null),
-            _react2.default.createElement('input', {
-              name: 'city',
-              type: 'text',
-              required: true,
-              defaultValue: 'Brooklyn'
-            })
+            'h3',
+            null,
+            'raw json output'
           ),
           _react2.default.createElement(
-            'button',
-            { type: 'submit', className: 'button' },
-            'update'
-          )
-        ),
-        _react2.default.createElement(
-          'h3',
-          null,
-          'delete a user'
-        ),
-        _react2.default.createElement(
-          'form',
-          { onSubmit: this.onDelete },
-          _react2.default.createElement(
-            'div',
-            { className: 'form-group' },
-            'id number',
-            _react2.default.createElement('br', null),
-            _react2.default.createElement('input', {
-              name: 'id',
-              type: 'text',
-              required: true,
-              defaultValue: '1'
-            })
+            'p',
+            null,
+            JSON.stringify(this.state.data)
           ),
           _react2.default.createElement(
-            'button',
-            { type: 'submit', className: 'button' },
-            'delete'
+            'h3',
+            null,
+            'a formatted example of all user data'
+          ),
+          _react2.default.createElement(
+            'ul',
+            null,
+            this.state.data.users && this.state.data.users.map(function (user) {
+              return _react2.default.createElement(
+                'li',
+                { key: user.id },
+                'user no.',
+                user.id,
+                ') ',
+                user.name,
+                ': my favorite clubs are in ',
+                user.favoriteCity
+              );
+            })
           )
         )
       );
@@ -11441,19 +11504,19 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var App = function (_React$Component) {
-  _inherits(App, _React$Component);
+var List = function (_React$Component) {
+  _inherits(List, _React$Component);
 
-  function App() {
-    _classCallCheck(this, App);
+  function List() {
+    _classCallCheck(this, List);
 
-    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
+    var _this = _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this));
 
     _this.state = { data: {} };
     return _this;
   }
 
-  _createClass(App, [{
+  _createClass(List, [{
     key: 'componentWillMount',
     value: function componentWillMount() {
       var _this2 = this;
@@ -11515,10 +11578,10 @@ var App = function (_React$Component) {
     }
   }]);
 
-  return App;
+  return List;
 }(_react2.default.Component);
 
-exports.default = App;
+exports.default = List;
 
 /***/ }),
 /* 111 */

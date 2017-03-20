@@ -18,6 +18,8 @@ people.route('/')
     let id = parseInt(req.body.id)
     let favoriteCity = req.body.favoriteCity
     users.update( {id: id}, favoriteCity)
+    let updatedUser = users.find( {id: id} )
+    res.json(updatedUser)
 	})
 
 people.route('/:id')
@@ -29,6 +31,8 @@ people.route('/:id')
   .delete((req, res, next)=>{
     let id = parseInt(req.params.id)
     users.deleteUser( {id: id} )
+    let deletedUser = users.find( {id: id} )
+    res.json(deletedUser)
   })
 
 module.exports = people
