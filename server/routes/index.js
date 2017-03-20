@@ -25,12 +25,7 @@ people.route('/')
     .catch(next)
   })
   .put((req, res, next)=>{
-		User.findOne({
-			where: {
-        name: req.body.name,
-        favoriteCity: req.body.favoriteCity
-			}
-		})
+    User.findById(req.params.id)
 		.then(user => {
 			if(!user) res.sendStatus(404)
 			else return user.update(req.body)

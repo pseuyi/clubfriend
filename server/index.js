@@ -37,7 +37,7 @@ const PORT = process.env.PORT || 3000
 
 app.listen(PORT, () => {
   console.log('production express server is running at localhost:' + PORT)
-  db.sync()
+  db.sync({force:true})
   .then(() => {
     console.log('cool, the pg server is connected')
   })
