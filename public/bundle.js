@@ -11132,6 +11132,11 @@ var Desc = function (_React$Component) {
           " returns a specific user's info",
           _react2.default.createElement("br", null),
           "/DELETE request to /people/:id deletes a specific user"
+        ),
+        _react2.default.createElement(
+          "p",
+          null,
+          "* refresh page for changes"
         )
       );
     }
@@ -11488,7 +11493,7 @@ var App = function (_React$Component) {
         _react2.default.createElement(
           'h3',
           null,
-          'user data list'
+          'a formatted example of all user data'
         ),
         _react2.default.createElement(
           'ul',

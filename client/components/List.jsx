@@ -21,7 +21,7 @@ export default class App extends React.Component {
         <h2>example /GET request to /people</h2>
         <h3>raw json output</h3>
         <p>{JSON.stringify(this.state.data)}</p>
-        <h3>user data list</h3>
+        <h3>a formatted example of all user data</h3>
         <ul>
           {
             this.state.data.users && this.state.data.users.map(user=>(

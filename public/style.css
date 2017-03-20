@@ -36,6 +36,9 @@ ul {
   margin: 0 auto;
   width: 66%;
 }
+img {
+  float: right;
+}
 .flex {
   display: flex;
   justify-content: space-between;
@@ -67,13 +70,14 @@ input {
   width: 100%;
   border: 0;
   outline: 0;
-  border-bottom: 2px solid grey;
-  color: white;
-  background: none;
+  border-bottom: 2px solid #b1b5b4;
+  color: black;
+  background: #b1b5b4;
   outline: none;
 }
 input:focus {
   outline: none;
+  border-bottom: 2px solid white;
 }
 .button {
   margin-top: 0.2rem;
@@ -83,4 +87,7 @@ input:focus {
   font-size: 0.8rem;
   border: 1px solid white;
   border-radius: 0.4rem;
+}
+.button:hover {
+  background: #1f968c;
 }
