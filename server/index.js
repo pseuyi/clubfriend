@@ -1,13 +1,13 @@
 'use strict';
 
-var express = require('express')
-var app = express()
-var path = require('path')
-// var db = require('./db')
+const express = require('express')
+const app = express()
+const path = require('path')
+const db = require('./db')
 
-var compression = require('compression')
-var bodyParser = require('body-parser')
-var morgan = require('morgan')
+const compression = require('compression')
+const bodyParser = require('body-parser')
+const morgan = require('morgan')
 
 // logging middleware
 app.use(morgan('combined', {
@@ -33,14 +33,14 @@ app.get('/', (req, res)=>{
 })
 
 // production server, localhost:3000
-var PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3000
 
 app.listen(PORT, () => {
   console.log('production express server is running at localhost:' + PORT)
-  // db.sync()
-  // .then(() => {
-  //   console.log('cool, the pg server is connected')
-  // })
+  db.sync()
+  .then(() => {
+    console.log('cool, the pg server is connected')
+  })
 })
 
 // error handling

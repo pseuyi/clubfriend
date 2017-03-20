@@ -1,38 +1,62 @@
-var express = require('express')
-var people = express.Router()
-var path = require('path')
-var users = require('../userlist')
+const express = require('express')
+const people = express.Router()
+const path = require('path')
+
+const User = require('../db/user.model')
 
 people.route('/')
   .get((req, res, next)=>{
-    let all = users.list()
-    res.json({users: all})
+    User.findAll()
+    .then(people => {
+      res.json(people)
+    })
+    .catch(next)
   })
   .post((req, res, next)=>{
-    let name = req.body.name
-	  let favoriteCity = req.body.favoriteCity
-	  let newUser = users.add(name, favoriteCity)
-    res.json(newUser)
+    User.findOrCreate({
+      where:{
+        name: req.body.name,
+        favoriteCity: req.body.favoriteCity
+      }
+    })
+    .spread(person => {
+      res.json(person)
+    })
+    .catch(next)
   })
   .put((req, res, next)=>{
-    let id = parseInt(req.body.id)
-    let favoriteCity = req.body.favoriteCity
-    users.update( {id: id}, favoriteCity)
-    let updatedUser = users.find( {id: id} )
-    res.json(updatedUser)
+		User.findOne({
+			where: {
+        name: req.body.name,
+        favoriteCity: req.body.favoriteCity
+			}
+		})
+		.then(user => {
+			if(!user) res.sendStatus(404)
+			else return user.update(req.body)
+		})
+		.then(updatedUser => res.json(updatedUser))
+		.catch(next)
 	})
 
 people.route('/:id')
   .get((req, res, next)=>{
-    let id = parseInt(req.params.id)
-    let user = users.find( {id: id} )
-    res.json(user[0])
+    User.findById(req.params.id)
+    .then(user=>{
+      res.json(user)
+    })
+    .catch(next)
   })
   .delete((req, res, next)=>{
-    let id = parseInt(req.params.id)
-    users.deleteUser( {id: id} )
-    let deletedUser = users.find( {id: id} )
-    res.json(deletedUser)
+		User.findById(req.params.id)
+		.then(user => {
+			if(!user) res.sendStatus(404)
+			else return user.destroy()
+		})
+		.then(deletedUser => {
+			if(deletedUser) res.sendStatus(204)
+		})
+		.catch(next)
   })
 
 module.exports = people
