@@ -11096,7 +11096,7 @@ var Desc = function (_React$Component) {
             null,
             "this api supports http requests to retrieve user objects containing: id (int), name (string), and favorite city (string).",
             _react2.default.createElement("br", null),
-            "the following calls are supported and return a JSON object containing a \"users\" array:"
+            "the following endpoints are supported and return a JSON object containing a \"users\" array:"
           ),
           _react2.default.createElement(
             "p",
@@ -11177,9 +11177,25 @@ var Footer = function (_React$Component) {
           "div",
           { className: "col description" },
           _react2.default.createElement(
+            "h3",
+            null,
+            "more information"
+          ),
+          _react2.default.createElement(
             "p",
             null,
-            "*NOTE: for security and demo purposes post/put/delete requests are currently not linked to a databse and therefore not persistent"
+            "please note: for security and demo purposes post/put/delete requests are currently not linked to a database. data entries are therefore not persistent across sessions. a persistent model can be viewed via github below."
+          ),
+          _react2.default.createElement(
+            "p",
+            null,
+            "the clubfriend api currently uses ",
+            _react2.default.createElement(
+              "a",
+              { href: "https://lodash.com/" },
+              "_lodash"
+            ),
+            " for server-side queries."
           ),
           _react2.default.createElement(
             "h3",
@@ -11441,7 +11457,7 @@ var Forms = function (_React$Component) {
           ),
           _react2.default.createElement(
             'p',
-            null,
+            { id: 'jsonstr' },
             JSON.stringify(this.state.data)
           ),
           _react2.default.createElement(
@@ -11456,12 +11472,25 @@ var Forms = function (_React$Component) {
               return _react2.default.createElement(
                 'li',
                 { key: user.id },
-                'user no.',
-                user.id,
-                ') ',
-                user.name,
+                'user no. ',
+                _react2.default.createElement(
+                  'span',
+                  { style: { color: 'yellow' } },
+                  user.id
+                ),
+                ' \u2665 ',
+                _react2.default.createElement(
+                  'span',
+                  { style: { color: 'pink' } },
+                  user.name
+                ),
                 ': my favorite clubs are in ',
-                user.favoriteCity
+                _react2.default.createElement(
+                  'span',
+                  { style: { color: 'purple' } },
+                  user.favoriteCity
+                ),
+                '!'
               );
             })
           )

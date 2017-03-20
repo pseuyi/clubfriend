@@ -119,12 +119,12 @@ export default class Forms extends React.Component {
         <div className="col half section">
           <h2>example /GET request to /people</h2>
           <h3>raw json output</h3>
-          <p>{JSON.stringify(this.state.data)}</p>
+          <p id="jsonstr">{JSON.stringify(this.state.data)}</p>
           <h3>a formatted example of all user data</h3>
           <ul>
             {
               this.state.data.users && this.state.data.users.map(user=>(
-                <li key={user.id}>user no.{user.id}) {user.name}: my favorite clubs are in {user.favoriteCity}</li>
+                <li key={user.id}>user no. <span style={{color: 'yellow'}}>{user.id}</span> ♥ <span style={{color: 'pink'}}>{user.name}</span>: my favorite clubs are in <span style={{color: 'purple'}}>{user.favoriteCity}</span>!</li>
               ))
             }
           </ul>

@@ -2,22 +2,22 @@ const _ = require('lodash')
 
 const data = [
   {
-    id: 100,
+    id: 10,
     name: 'Mia',
     favoriteCity: 'Shanghai'
   },
   {
-    id: 101,
+    id: 11,
     name: 'Pseuyi',
     favoriteCity: 'New York'
   },
   {
-    id: 102,
+    id: 12,
     name: 'Janus',
     favoriteCity: 'Berlin'
   },
   {
-    id: 103,
+    id: 13,
     name: 'Loris',
     favoriteCity: 'London'
   }
