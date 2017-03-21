@@ -5,7 +5,7 @@ body {
   font-family: "Neue Haas Unica W01 Regular", Helvetica, Arial, sans-serif;
   font-size: 12px;
   color: white;
-  padding: 2.4em 10%;
+  padding: 4em 12%;
   background: #16726b;
 }
 h1 {
@@ -14,9 +14,10 @@ h1 {
   margin: 0;
 }
 h2 {
-  margin-top: 0;
+  margin: 0.4rem 0;
   font-size: 1.1rem;
   font-weight: bolder;
+  display: block;
 }
 h3, h3 a {
   font-size: 0.9rem;
@@ -31,13 +32,21 @@ a {
 ul {
   list-style: none;
   padding-left: 0;
+  margin: 0.4rem 0;
 }
 li {
+  line-height: 1.4rem;
+  margin-bottom: 0.2rem;
+}
+li.outline {
   text-align: center;
   border: 1px solid white;
   border-radius: 0.4rem;
-  line-height: 1.4rem;
-  margin-bottom: 0.2rem;
+}
+li.user {
+  padding: 0.8rem;
+  border: 1px solid white;
+  border-radius: 0.4rem;
 }
 #jsonstr {
   line-height: 1rem;
@@ -58,14 +67,14 @@ li {
   display: flex;
   justify-content: space-between;
   height: 100%;
-}
-.flex .col {
+  flex-direction: row;
+  flex-wrap: wrap;
   padding: 0 0.8rem;
 }
 .flex .half {
-  width: 46%;
+  width: 48%;
 }
-.flex .section {
+.section {
   padding: 0.8rem;
 }
 .divider {
@@ -85,7 +94,6 @@ li {
 }
 input {
   margin: 0.2rem 0;
-  width: 100%;
   border: 0;
   outline: 0;
   border-bottom: 2px solid grey;
@@ -97,12 +105,18 @@ input:focus {
   outline: none;
   border-bottom: 2px solid white;
 }
+.full {
+  width: 100%;
+}
+.button.full {
+  background: #187a72;
+  font-size: 0.8rem;
+}
 .button {
   margin-top: 0.2rem;
-  width: 100%;
-  background: #187a72;
+  background: none;
   color: white;
-  font-size: 0.8rem;
+  font-size: 0.6rem;
   border: 1px solid white;
   border-radius: 0.4rem;
 }
