@@ -17,7 +17,7 @@ export default class Desc extends React.Component {
                 /GET request to <a style={{"fontWeight": "bolder"}} href={"http://clubfriend.herokuapp.com/people"}>/people</a> returns all user objects<br />
                 /POST request to /people creates a new user object<br />
                 /PUT request to /people updates a user's info<br />
-                /GET request to <a style={{"fontWeight": "bolder"}} href={"http://clubfriend.herokuapp.com/people/100"}>/people/:id</a> returns a specific user's info<br />
+                /GET request to <a style={{"fontWeight": "bolder"}} href={"http://clubfriend.herokuapp.com/people/1"}>/people/:id</a> returns a specific user's info<br />
                 /DELETE request to /people/:id deletes a specific user
               </p>
               </div>)
