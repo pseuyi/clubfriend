@@ -1,10 +1,10 @@
 'use strict'
 
-var Sequelize = require('sequelize')
+const Sequelize = require('sequelize')
 
-var db = require('./index')
+const db = require('./index')
 
-var User = db.define('user', {
+const User = db.define('user', {
   name: Sequelize.STRING,
   favoriteCity: Sequelize.STRING,
 })
