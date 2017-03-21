@@ -12,7 +12,9 @@ import Footer from './Footer'
 export default class App extends React.Component {
   constructor() {
     super()
-    this.state = {users: [], documentation: false, forms: false}
+    this.state = {users: [], user: {}, documentation: false, forms: false}
+    this.fetchPeople = this.fetchPeople.bind(this)
+    this.fetchPerson = this.fetchPerson.bind(this)
     this.onPost = this.onPost.bind(this)
     this.onUpdate = this.onUpdate.bind(this)
     this.onDelete = this.onDelete.bind(this)
@@ -27,7 +29,16 @@ export default class App extends React.Component {
   fetchPeople () {
     axios.get('/people')
      .then(res => {
-       this.setState({users: res.data})
+       this.setState({users: res.data, user: {}})
+     })
+     .catch(err => console.error('unsuccessful', err))
+  }
+  fetchPerson (id) {
+    console.log('getting the one person to put on state')
+    let path = `/people/${id}`
+    axios.get(path)
+     .then(res => {
+       this.setState({user: res.data})
      })
      .catch(err => console.error('unsuccessful', err))
   }
@@ -91,6 +102,9 @@ export default class App extends React.Component {
         </div>
 
         <Users
+          fetchPeople={this.fetchPeople}
+          fetchPerson={this.fetchPerson}
+          user={this.state.user}
           users={this.state.users}
           deleteOne={this.deleteOne}
           editOne={this.editOne}

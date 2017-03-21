@@ -10252,7 +10252,9 @@ var App = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
 
-    _this.state = { users: [], documentation: false, forms: false };
+    _this.state = { users: [], user: {}, documentation: false, forms: false };
+    _this.fetchPeople = _this.fetchPeople.bind(_this);
+    _this.fetchPerson = _this.fetchPerson.bind(_this);
     _this.onPost = _this.onPost.bind(_this);
     _this.onUpdate = _this.onUpdate.bind(_this);
     _this.onDelete = _this.onDelete.bind(_this);
@@ -10274,7 +10276,20 @@ var App = function (_React$Component) {
       var _this2 = this;
 
       _axios2.default.get('/people').then(function (res) {
-        _this2.setState({ users: res.data });
+        _this2.setState({ users: res.data, user: {} });
+      }).catch(function (err) {
+        return console.error('unsuccessful', err);
+      });
+    }
+  }, {
+    key: 'fetchPerson',
+    value: function fetchPerson(id) {
+      var _this3 = this;
+
+      console.log('getting the one person to put on state');
+      var path = '/people/' + id;
+      _axios2.default.get(path).then(function (res) {
+        _this3.setState({ user: res.data });
       }).catch(function (err) {
         return console.error('unsuccessful', err);
       });
@@ -10282,7 +10297,7 @@ var App = function (_React$Component) {
   }, {
     key: 'onPost',
     value: function onPost(event) {
-      var _this3 = this;
+      var _this4 = this;
 
       event.preventDefault();
       var userInfo = {
@@ -10290,7 +10305,7 @@ var App = function (_React$Component) {
         favoriteCity: event.target.city.value
       };
       _axios2.default.post('/people', userInfo).then(function (res) {
-        return _this3.fetchPeople();
+        return _this4.fetchPeople();
       }).catch(function (err) {
         return console.error('not posted', err);
       });
@@ -10298,7 +10313,7 @@ var App = function (_React$Component) {
   }, {
     key: 'onUpdate',
     value: function onUpdate(event) {
-      var _this4 = this;
+      var _this5 = this;
 
       event.preventDefault();
       var userInfo = {
@@ -10306,7 +10321,7 @@ var App = function (_React$Component) {
         favoriteCity: event.target.city.value
       };
       _axios2.default.put('/people', userInfo).then(function (res) {
-        return _this4.fetchPeople();
+        return _this5.fetchPeople();
       }).catch(function (err) {
         return console.error('not updated', err);
       });
@@ -10314,12 +10329,12 @@ var App = function (_React$Component) {
   }, {
     key: 'onDelete',
     value: function onDelete(event) {
-      var _this5 = this;
+      var _this6 = this;
 
       event.preventDefault();
       var path = '/people/' + event.target.id.value;
       _axios2.default.delete(path).then(function (res) {
-        return _this5.fetchPeople();
+        return _this6.fetchPeople();
       });
     }
   }, {
@@ -10335,17 +10350,17 @@ var App = function (_React$Component) {
   }, {
     key: 'deleteOne',
     value: function deleteOne(id) {
-      var _this6 = this;
+      var _this7 = this;
 
       var path = '/people/' + id;
       _axios2.default.delete(path).then(function (res) {
-        return _this6.fetchPeople();
+        return _this7.fetchPeople();
       });
     }
   }, {
     key: 'editOne',
     value: function editOne(event, id) {
-      var _this7 = this;
+      var _this8 = this;
 
       event.preventDefault();
       var userInfo = {
@@ -10353,7 +10368,7 @@ var App = function (_React$Component) {
         favoriteCity: event.target.city.value
       };
       _axios2.default.put('/people', userInfo).then(function (res) {
-        return _this7.fetchPeople();
+        return _this8.fetchPeople();
       }).catch(function (err) {
         return console.error('not updated', err);
       });
@@ -10377,6 +10392,9 @@ var App = function (_React$Component) {
           _react2.default.createElement(_Post2.default, { onPost: this.onPost })
         ),
         _react2.default.createElement(_Users2.default, {
+          fetchPeople: this.fetchPeople,
+          fetchPerson: this.fetchPerson,
+          user: this.state.user,
           users: this.state.users,
           deleteOne: this.deleteOne,
           editOne: this.editOne
@@ -11413,11 +11431,6 @@ var Footer = function (_React$Component) {
             "more information"
           ),
           _react2.default.createElement(
-            "p",
-            null,
-            "note: for security and demo purposes post/put/delete are not persistent across sessions. view more via github below."
-          ),
-          _react2.default.createElement(
             "h3",
             null,
             _react2.default.createElement(
@@ -11900,14 +11913,17 @@ var User = function (_React$Component) {
           editOne = _props.editOne,
           id = _props.id,
           name = _props.name,
-          city = _props.city;
+          city = _props.city,
+          fetchPerson = _props.fetchPerson;
 
       return _react2.default.createElement(
         "div",
         { className: "half" },
         this.state.edit ? _react2.default.createElement(
           "li",
-          { key: id, className: "user" },
+          { key: id, className: "user", onClick: function onClick() {
+              return fetchPerson(id);
+            } },
           _react2.default.createElement(
             "form",
             { onSubmit: function onSubmit(e) {
@@ -11916,7 +11932,7 @@ var User = function (_React$Component) {
             "user no. ",
             _react2.default.createElement(
               "span",
-              { style: { color: 'grey' } },
+              { style: { color: 'white' } },
               id
             ),
             " \u2665 ",
@@ -11940,11 +11956,13 @@ var User = function (_React$Component) {
           )
         ) : _react2.default.createElement(
           "li",
-          { key: id, className: "user" },
+          { key: id, className: "user", onClick: function onClick() {
+              return fetchPerson(id);
+            } },
           "user no. ",
           _react2.default.createElement(
             "span",
-            { style: { color: 'grey' } },
+            { style: { color: 'white' } },
             id
           ),
           " \u2665 ",
@@ -12028,23 +12046,63 @@ var Users = function (_React$Component) {
     key: 'render',
     value: function render() {
       var _props = this.props,
+          user = _props.user,
           users = _props.users,
           deleteOne = _props.deleteOne,
-          editOne = _props.editOne;
+          editOne = _props.editOne,
+          fetchPerson = _props.fetchPerson,
+          fetchPeople = _props.fetchPeople;
 
       return _react2.default.createElement(
-        'ul',
-        { className: 'section flex' },
-        users && users.map(function (user) {
-          return _react2.default.createElement(_User2.default, {
+        'div',
+        null,
+        _react2.default.createElement(
+          'div',
+          { className: 'id-list' },
+          users.length ? _react2.default.createElement(
+            'span',
+            { style: { color: "#b1b5b4", "fontWeight": "bolder" } },
+            'filter by user no. :  '
+          ) : null,
+          users && users.map(function (user) {
+            return _react2.default.createElement(
+              'span',
+              { className: 'id-filter', key: user.id, onClick: function onClick() {
+                  return fetchPerson(user.id);
+                } },
+              user.id,
+              ' '
+            );
+          }),
+          users.length ? _react2.default.createElement(
+            'span',
+            { className: 'id-filter', style: { color: "#b1b5b4", "fontWeight": "bolder" }, onClick: fetchPeople },
+            'all'
+          ) : null
+        ),
+        _react2.default.createElement(
+          'ul',
+          { className: 'flex section' },
+          user.id ? _react2.default.createElement(_User2.default, {
             key: user.id,
             id: user.id,
             name: user.name,
             city: user.favoriteCity,
             deleteOne: deleteOne,
-            editOne: editOne
-          });
-        })
+            editOne: editOne,
+            fetchPerson: fetchPerson
+          }) : users.map(function (user) {
+            return _react2.default.createElement(_User2.default, {
+              key: user.id,
+              id: user.id,
+              name: user.name,
+              city: user.favoriteCity,
+              deleteOne: deleteOne,
+              editOne: editOne,
+              fetchPerson: fetchPerson
+            });
+          })
+        )
       );
     }
   }]);

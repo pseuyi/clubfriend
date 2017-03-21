@@ -38,15 +38,19 @@ li {
   line-height: 1.4rem;
   margin-bottom: 0.2rem;
 }
-li.outline {
+.outline {
   text-align: center;
   border: 1px solid white;
   border-radius: 0.4rem;
 }
-li.user {
+.user {
   padding: 0.8rem;
   border: 1px solid white;
   border-radius: 0.4rem;
+  cursor: pointer;
+}
+.user:hover {
+  background: #1f968c;
 }
 #jsonstr {
   line-height: 1rem;
@@ -73,6 +77,12 @@ li.user {
 }
 .flex .half {
   width: 48%;
+}
+.id-list {
+  padding: 0 0.8rem;
+}
+.id-filter {
+  cursor: pointer;
 }
 .section {
   padding: 0.8rem;
