@@ -24,7 +24,7 @@ export default class Post extends React.Component {
             defaultValue="New York"
           />
         </div>
-        <button type="submit" className="button full">post</button>
+        <button type="submit" className="button full">create friend</button>
       </form>
     )
   }
