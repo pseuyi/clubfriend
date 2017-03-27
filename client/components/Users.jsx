@@ -5,7 +5,7 @@ import User from './User'
 export default class Users extends React.Component {
 
   render () {
-    const { user, users, deleteOne, editOne, fetchPerson, fetchPeople } = this.props
+    const { user, users, deleteOne, editOne, fetchPerson, fetchPeople, edit, toggleEdit } = this.props
     return (
       <div>
 
@@ -33,6 +33,8 @@ export default class Users extends React.Component {
               deleteOne={deleteOne}
               editOne={editOne}
               fetchPerson={fetchPerson}
+              edit={edit}
+              toggleEdit={toggleEdit}
             />
             : users.map(user=>(
               <User
@@ -43,6 +45,8 @@ export default class Users extends React.Component {
                 deleteOne={deleteOne}
                 editOne={editOne}
                 fetchPerson={fetchPerson}
+                edit={edit}
+                toggleEdit={toggleEdit}
               />
             ))
           }

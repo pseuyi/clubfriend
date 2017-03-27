@@ -6,7 +6,7 @@ const User = require('../db/user.model')
 
 people.route('/')
   .get((req, res, next)=>{
-    User.findAll()
+    User.findAll({ order: 'id' })
     .then(people => {
       res.json(people)
     })

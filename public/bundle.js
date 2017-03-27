@@ -10252,7 +10252,7 @@ var App = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
 
-    _this.state = { users: [], user: {}, documentation: false, forms: false };
+    _this.state = { users: [], user: {}, documentation: false, forms: false, edit: false };
     _this.fetchPeople = _this.fetchPeople.bind(_this);
     _this.fetchPerson = _this.fetchPerson.bind(_this);
     _this.onPost = _this.onPost.bind(_this);
@@ -10262,6 +10262,7 @@ var App = function (_React$Component) {
     _this.editOne = _this.editOne.bind(_this);
     _this.toggleDocumentation = _this.toggleDocumentation.bind(_this);
     _this.toggleForms = _this.toggleForms.bind(_this);
+    _this.toggleEdit = _this.toggleEdit.bind(_this);
     return _this;
   }
 
@@ -10270,97 +10271,73 @@ var App = function (_React$Component) {
     value: function componentWillMount() {
       this.fetchPeople();
     }
+    // takes single user view off state, fetches all people
+
   }, {
     key: 'fetchPeople',
     value: function fetchPeople() {
       var _this2 = this;
 
+      this.setState({ user: {} });
+      console.log('fetch all people');
       _axios2.default.get('/people').then(function (res) {
-        _this2.setState({ users: res.data, user: {} });
+        _this2.setState({ users: res.data });
+        console.log('fetchPeople state', _this2.state);
       }).catch(function (err) {
         return console.error('unsuccessful', err);
       });
     }
+    // puts single user view on state
+
   }, {
     key: 'fetchPerson',
     value: function fetchPerson(id) {
       var _this3 = this;
 
-      console.log('getting the one person to put on state');
-      var path = '/people/' + id;
-      _axios2.default.get(path).then(function (res) {
-        _this3.setState({ user: res.data });
-      }).catch(function (err) {
-        return console.error('unsuccessful', err);
-      });
+      if (!this.state.edit) {
+        var path = '/people/' + id;
+        _axios2.default.get(path).then(function (res) {
+          _this3.setState({ user: res.data });
+        }).catch(function (err) {
+          return console.error('unsuccessful', err);
+        });
+      }
     }
-  }, {
-    key: 'onPost',
-    value: function onPost(event) {
-      var _this4 = this;
+    // toggle menu for documentation
 
-      event.preventDefault();
-      var userInfo = {
-        name: event.target.name.value,
-        favoriteCity: event.target.city.value
-      };
-      _axios2.default.post('/people', userInfo).then(function (res) {
-        return _this4.fetchPeople();
-      }).catch(function (err) {
-        return console.error('not posted', err);
-      });
-    }
-  }, {
-    key: 'onUpdate',
-    value: function onUpdate(event) {
-      var _this5 = this;
-
-      event.preventDefault();
-      var userInfo = {
-        id: event.target.id.value,
-        favoriteCity: event.target.city.value
-      };
-      _axios2.default.put('/people', userInfo).then(function (res) {
-        return _this5.fetchPeople();
-      }).catch(function (err) {
-        return console.error('not updated', err);
-      });
-    }
-  }, {
-    key: 'onDelete',
-    value: function onDelete(event) {
-      var _this6 = this;
-
-      event.preventDefault();
-      var path = '/people/' + event.target.id.value;
-      _axios2.default.delete(path).then(function (res) {
-        return _this6.fetchPeople();
-      });
-    }
   }, {
     key: 'toggleDocumentation',
     value: function toggleDocumentation() {
       this.setState({ documentation: !this.state.documentation });
     }
+    // toggle menu for api playground
+
   }, {
     key: 'toggleForms',
     value: function toggleForms() {
       this.setState({ forms: !this.state.forms });
     }
   }, {
+    key: 'toggleEdit',
+    value: function toggleEdit() {
+      this.setState({ edit: !this.state.edit });
+    }
+  }, {
     key: 'deleteOne',
     value: function deleteOne(id) {
-      var _this7 = this;
+      var _this4 = this;
 
       var path = '/people/' + id;
       _axios2.default.delete(path).then(function (res) {
-        return _this7.fetchPeople();
+        return _this4.fetchPeople();
       });
     }
+    // edit single user's city
+
   }, {
     key: 'editOne',
     value: function editOne(event, id) {
-      var _this8 = this;
+      var _this5 = this;
 
       event.preventDefault();
       var userInfo = {
@@ -10368,9 +10345,55 @@ var App = function (_React$Component) {
         favoriteCity: event.target.city.value
       };
       _axios2.default.put('/people', userInfo).then(function (res) {
-        return _this8.fetchPeople();
+        console.log('edit One state', _this5.state);
+        _this5.fetchPeople();
       }).catch(function (err) {
         return console.error('not updated', err);
+      });
+    }
+    // TODO: refactor methods below for managing api playground
+
+  }, {
+    key: 'onPost',
+    value: function onPost(event) {
+      var _this6 = this;
+
+      event.preventDefault();
+      var userInfo = {
+        name: event.target.name.value,
+        favoriteCity: event.target.city.value
+      };
+      _axios2.default.post('/people', userInfo).then(function (res) {
+        return _this6.fetchPeople();
+      }).catch(function (err) {
+        return console.error('not posted', err);
+      });
+    }
+  }, {
+    key: 'onUpdate',
+    value: function onUpdate(event) {
+      var _this7 = this;
+
+      event.preventDefault();
+      var userInfo = {
+        id: event.target.id.value,
+        favoriteCity: event.target.city.value
+      };
+      _axios2.default.put('/people', userInfo).then(function (res) {
+        return _this7.fetchPeople();
+      }).catch(function (err) {
+        return console.error('not updated', err);
+      });
+    }
+  }, {
+    key: 'onDelete',
+    value: function onDelete(event) {
+      var _this8 = this;
+
+      event.preventDefault();
+      var path = '/people/' + event.target.id.value;
+      _axios2.default.delete(path).then(function (res) {
+        return _this8.fetchPeople();
       });
     }
   }, {
@@ -10397,7 +10420,9 @@ var App = function (_React$Component) {
           user: this.state.user,
           users: this.state.users,
           deleteOne: this.deleteOne,
-          editOne: this.editOne
+          editOne: this.editOne,
+          edit: this.state.edit,
+          toggleEdit: this.toggleEdit
         }),
         _react2.default.createElement(_Desc2.default, {
           open: this.state.documentation,
@@ -11891,35 +11916,26 @@ var User = function (_React$Component) {
   function User() {
     _classCallCheck(this, User);
 
-    var _this = _possibleConstructorReturn(this, (User.__proto__ || Object.getPrototypeOf(User)).call(this));
-
-    _this.state = { edit: false };
-    _this.toggleEdit = _this.toggleEdit.bind(_this);
-    return _this;
+    return _possibleConstructorReturn(this, (User.__proto__ || Object.getPrototypeOf(User)).apply(this, arguments));
   }
 
   _createClass(User, [{
-    key: "toggleEdit",
-    value: function toggleEdit() {
-      this.setState({ edit: !this.state.edit });
-    }
-  }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
-
       var _props = this.props,
           deleteOne = _props.deleteOne,
           editOne = _props.editOne,
           id = _props.id,
           name = _props.name,
           city = _props.city,
-          fetchPerson = _props.fetchPerson;
+          fetchPerson = _props.fetchPerson,
+          edit = _props.edit,
+          toggleEdit = _props.toggleEdit;
 
       return _react2.default.createElement(
         "div",
         { className: "half" },
-        this.state.edit ? _react2.default.createElement(
+        edit ? _react2.default.createElement(
           "li",
           { key: id, className: "user", onClick: function onClick() {
               return fetchPerson(id);
@@ -11927,7 +11943,7 @@ var User = function (_React$Component) {
           _react2.default.createElement(
             "form",
             { onSubmit: function onSubmit(e) {
-                editOne(e, id);_this2.toggleEdit();
+                editOne(e, id);toggleEdit();
               } },
             "user no. ",
             _react2.default.createElement(
@@ -11983,7 +11999,7 @@ var User = function (_React$Component) {
             null,
             _react2.default.createElement(
               "button",
-              { onClick: this.toggleEdit, className: "button" },
+              { onClick: toggleEdit, className: "button" },
               "edit"
             ),
             _react2.default.createElement(
@@ -12051,7 +12067,9 @@ var Users = function (_React$Component) {
           deleteOne = _props.deleteOne,
           editOne = _props.editOne,
           fetchPerson = _props.fetchPerson,
-          fetchPeople = _props.fetchPeople;
+          fetchPeople = _props.fetchPeople,
+          edit = _props.edit,
+          toggleEdit = _props.toggleEdit;
 
       return _react2.default.createElement(
         'div',
@@ -12090,7 +12108,9 @@ var Users = function (_React$Component) {
             city: user.favoriteCity,
             deleteOne: deleteOne,
             editOne: editOne,
-            fetchPerson: fetchPerson
+            fetchPerson: fetchPerson,
+            edit: edit,
+            toggleEdit: toggleEdit
           }) : users.map(function (user) {
             return _react2.default.createElement(_User2.default, {
               key: user.id,
@@ -12099,7 +12119,9 @@ var Users = function (_React$Component) {
               city: user.favoriteCity,
               deleteOne: deleteOne,
               editOne: editOne,
-              fetchPerson: fetchPerson
+              fetchPerson: fetchPerson,
+              edit: edit,
+              toggleEdit: toggleEdit
             });
           })
         )

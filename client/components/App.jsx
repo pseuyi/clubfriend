@@ -12,7 +12,7 @@ import Footer from './Footer'
 export default class App extends React.Component {
   constructor() {
     super()
-    this.state = {users: [], user: {}, documentation: false, forms: false}
+    this.state = {users: [], user: {}, documentation: false, forms: false, edit: false}
     this.fetchPeople = this.fetchPeople.bind(this)
     this.fetchPerson = this.fetchPerson.bind(this)
     this.onPost = this.onPost.bind(this)
@@ -22,26 +22,64 @@ export default class App extends React.Component {
     this.editOne = this.editOne.bind(this)
     this.toggleDocumentation = this.toggleDocumentation.bind(this)
     this.toggleForms = this.toggleForms.bind(this)
+    this.toggleEdit = this.toggleEdit.bind(this)
   }
   componentWillMount () {
     this.fetchPeople()
   }
+  // takes single user view off state, fetches all people
   fetchPeople () {
+    this.setState({user: {}})
+    console.log('fetch all people')
     axios.get('/people')
      .then(res => {
-       this.setState({users: res.data, user: {}})
+       this.setState({users: res.data})
+       console.log('fetchPeople state', this.state)
      })
      .catch(err => console.error('unsuccessful', err))
   }
+  // puts single user view on state
   fetchPerson (id) {
-    console.log('getting the one person to put on state')
-    let path = `/people/${id}`
-    axios.get(path)
-     .then(res => {
-       this.setState({user: res.data})
-     })
-     .catch(err => console.error('unsuccessful', err))
+    if(!this.state.edit) {
+      let path = `/people/${id}`
+      axios.get(path)
+      .then(res => {
+        this.setState({user: res.data})
+      })
+      .catch(err => console.error('unsuccessful', err))
+    }
   }
+  // toggle menu for documentation
+  toggleDocumentation () {
+    this.setState({documentation: !this.state.documentation})
+  }
+  // toggle menu for api playground
+  toggleForms () {
+    this.setState({forms: !this.state.forms})
+  }
+  toggleEdit () {
+    this.setState({edit: !this.state.edit})
+  }
+  deleteOne (id) {
+    let path = `/people/${id}`
+    axios.delete(path)
+      .then(res => this.fetchPeople())
+  }
+  // edit single user's city
+  editOne (event, id) {
+    event.preventDefault()
+    let userInfo = {
+      id: id,
+      favoriteCity: event.target.city.value
+    }
+    axios.put('/people', userInfo)
+       .then(res => {
+         console.log('edit One state', this.state)
+         this.fetchPeople()
+       })
+       .catch(err => console.error('not updated', err))
+  }
+  // TODO: refactor methods below for managing api playground
   onPost(event) {
     event.preventDefault()
     let userInfo = {
@@ -68,27 +106,6 @@ export default class App extends React.Component {
     axios.delete(path)
       .then(res => this.fetchPeople())
   }
-  toggleDocumentation () {
-    this.setState({documentation: !this.state.documentation})
-  }
-  toggleForms () {
-    this.setState({forms: !this.state.forms})
-  }
-  deleteOne (id) {
-    let path = `/people/${id}`
-    axios.delete(path)
-      .then(res => this.fetchPeople())
-  }
-  editOne (event, id) {
-    event.preventDefault()
-    let userInfo = {
-      id: id,
-      favoriteCity: event.target.city.value
-    }
-    axios.put('/people', userInfo)
-       .then(res => this.fetchPeople())
-       .catch(err => console.error('not updated', err))
-  }
 
   render () {
     return (
@@ -108,6 +125,8 @@ export default class App extends React.Component {
           users={this.state.users}
           deleteOne={this.deleteOne}
           editOne={this.editOne}
+          edit={this.state.edit}
+          toggleEdit={this.toggleEdit}
         />
 
         <Desc
