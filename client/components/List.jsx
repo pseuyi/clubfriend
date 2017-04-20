@@ -1,3 +1,4 @@
+// TODO: refactor this component to accept props
 import React from 'react'
 
 import axios from 'axios'

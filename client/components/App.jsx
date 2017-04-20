@@ -30,11 +30,11 @@ export default class App extends React.Component {
   // takes single user view off state, fetches all people
   fetchPeople () {
     this.setState({user: {}})
-    console.log('fetch all people')
+    // console.log('fetch all people')
     axios.get('/people')
      .then(res => {
        this.setState({users: res.data})
-       console.log('fetchPeople state', this.state)
+       // console.log('fetchPeople state', this.state)
      })
      .catch(err => console.error('unsuccessful', err))
   }
@@ -108,6 +108,7 @@ export default class App extends React.Component {
   }
 
   render () {
+    // TODO: refactor main subheading and post box to separate component
     return (
       <div className="app">
         <Header />

@@ -10,10 +10,11 @@ export default class Header extends React.Component {
           <p className="divider">~</p>
         </div>
         <div className="col half">
-          <img id="ttp-logo" src="ttp.png" />
-          <img id="spotify-logo" src="spotify.png" />
         </div>
       </div>
     )
   }
 }
+
+// <img id="ttp-logo" src="ttp.png" />
+// <img id="spotify-logo" src="spotify.png" />

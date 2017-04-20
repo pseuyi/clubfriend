@@ -10279,10 +10279,10 @@ var App = function (_React$Component) {
       var _this2 = this;
 
       this.setState({ user: {} });
-      console.log('fetch all people');
+      // console.log('fetch all people')
       _axios2.default.get('/people').then(function (res) {
         _this2.setState({ users: res.data });
-        console.log('fetchPeople state', _this2.state);
+        // console.log('fetchPeople state', this.state)
       }).catch(function (err) {
         return console.error('unsuccessful', err);
       });
@@ -10399,6 +10399,7 @@ var App = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      // TODO: refactor main subheading and post box to separate component
       return _react2.default.createElement(
         'div',
         { className: 'app' },
@@ -11762,18 +11763,17 @@ var Header = function (_React$Component) {
             "~"
           )
         ),
-        _react2.default.createElement(
-          "div",
-          { className: "col half" },
-          _react2.default.createElement("img", { id: "ttp-logo", src: "ttp.png" }),
-          _react2.default.createElement("img", { id: "spotify-logo", src: "spotify.png" })
-        )
+        _react2.default.createElement("div", { className: "col half" })
       );
     }
   }]);
 
   return Header;
 }(_react2.default.Component);
+
+// <img id="ttp-logo" src="ttp.png" />
+// <img id="spotify-logo" src="spotify.png" />
+
 
 exports.default = Header;
 
@@ -11804,7 +11804,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // TODO: refactor this component to accept props
+
 
 var List = function (_React$Component) {
   _inherits(List, _React$Component);
